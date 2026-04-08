@@ -209,9 +209,6 @@ docker compose up --build -d
 ---
 
 ## Evidencias / Capturas
-
-## 📸 Funcionamiento del sistema
-
 <p align="left">
   <img src="./images/cap1.png" width="400">
  <br>
@@ -241,7 +238,7 @@ docker compose up --build -d
  <br>
  <img src="./images/shpmn.png" width="400">
  <br>
- <img src="./images/shpwn.png" width="400">
+ <img src="./images/shpwm.png" width="400">
  <br>
  <img src="./images/shpkd.png" width="400">
  <br> 
