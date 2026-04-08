@@ -208,3 +208,32 @@ docker compose up --build -d
 
 ---
 
+## Evidencias / Capturas
+
+## 📸 Funcionamiento del sistema
+
+<p align="left">
+  <img src="./images/cap1.png" width="400">
+  <img src="./images/cap2.png" width="400">
+ <img src="./images/cap3.png" width="400">
+  <img src="./images/cap4.png" width="400">
+ <img src="./images/dockerfileangular.png" width="400">
+  <img src="./images/dockerfileteslo.png" width="400">
+ <img src="./images/env.png" width="400">
+  <img src="./images/nginxconfi.png" width="400">
+ <img src="./images/permisos.png" width="400">
+  <img src="./images/inipt1.png" width="400">
+  <img src="./images/inipt2.png" width="400">
+  <img src="./images/dkps.png" width="400">
+  <img src="./images/shp.png" width="400">
+  <img src="./images/shpmn.png" width="400">
+  <img src="./images/shpwn.png" width="400">
+  <img src="./images/shpkd.png" width="400">
+  <img src="./images/dtpd.png" width="400">
+</p>
+
+---
+
+### Enlace al video de YT:
+
+https://youtu.be/iIXB3rRVFeI
