@@ -1,145 +1,210 @@
-# Practica Final Docker
-TesloShop – Aplicación Contenerizada (Docker)
+# Práctica Final Docker
 
-Este proyecto implementa una arquitectura end-to-end contenerizada usando Docker y Docker Compose. La aplicación está dividida en tres servicios principales, los cuales son:
-Frontend (Aplicación Angular servida con Nginx), Backend (API REST desarrollada en NestJS) y Base de datos (PostgreSQL)
+## TesloShop – Aplicación Contenerizada
 
-Todos los servicios se comunican a través de una red interna de Docker (teslo-network).
+Este proyecto implementa una arquitectura **end-to-end contenerizada** utilizando **Docker** y **Docker Compose**.
 
-Diagrama lógico
-[ Usuario ]
-     ↓
-[ Nginx (Frontend Angular) ]
-     ↓ (proxy /api)
-[ Backend (NestJS) ]
-     ↓
-[ PostgreSQL ]
+La aplicación está compuesta por tres servicios principales:
 
-Tecnologías utilizadas
-Docker & Docker Compose
-Node.js (NestJS)
-Angular
-Nginx
-PostgreSQL
+* **Frontend:** Aplicación Angular servida con Nginx
+* **Backend:** API REST desarrollada en NestJS
+* **Base de datos:** PostgreSQL
 
-Pasos de ejecución
+Todos los servicios se comunican a través de una red interna de Docker:
+**`teslo-network`**
+
+---
+
+## Tecnologías utilizadas
+
+* Docker & Docker Compose
+* Node.js (NestJS)
+* Angular
+* Nginx
+* PostgreSQL
+
+---
+
+## Pasos de ejecución
 
 Sigue estos pasos para levantar el proyecto correctamente:
 
-1. Clonar el repositorio
-git clone <url-del-repo>
-cd tesloshop
+### 1. Clonar el repositorio
 
-2. Crear archivo de entorno
-cp .env.example .env
+```bash
+git clone "url del repositorio"
+cd practica-docker-final
+```
 
-Editar .env y configurar:
+### 2. Configurar variables de entorno
 
+Editar el archivo `.env`:
+
+```env
 POSTGRES_PASSWORD=tu_password
 DB_PASSWORD=tu_password
 JWT_SECRET=una_clave_segura
+```
 
-3. Dar permisos a los scripts
+---
+
+### 3. Dar permisos a los scripts
+
+```bash
 chmod +x start.sh stop.sh
+```
 
-4. Ejecutar la aplicación
+---
 
-Opción con script:
+### 4. Ejecutar la aplicación
 
+#### Opción 1: Usando script
+
+```bash
 ./start.sh
+```
 
-O directamente con Docker:
+#### Opción 2: Directamente con Docker
 
+```bash
 docker compose up --build -d
+```
 
-Verificar servicios
+Verificar servicios:
 
+```bash
 docker compose ps
+```
 
-Debes ver:
+Deberías ver:
 
-teslo-db → running (healthy)
-teslo-backend → running
-teslo-frontend → running
+* `teslo-db` → running (healthy)
+* `teslo-backend` → running
+* `teslo-frontend` → running
 
-6. Acceder a la aplicación
-Frontend: http://localhost
-Backend API: http://localhost:3000/api
-Swagger: http://localhost:3000/api/docs
-7. Ejecutar el seed (datos de prueba)
+---
 
+## Acceso a la aplicación
+
+* Frontend: [http://localhost](http://localhost)
+* Backend API: [http://localhost:3000/api](http://localhost:3000/api)
+* Swagger: [http://localhost:3000/api/docs](http://localhost:3000/api/docs)
+
+---
+
+## Seeder (Datos de prueba)
+
+Ejecuta:
+
+```
 http://localhost:3000/api/seed
+```
 
-Esto cargará productos y usuarios de prueba.
+Esto cargará productos y usuarios de prueba en la base de datos.
 
-Explicación de servicios
-1. Base de datos (PostgreSQL)
--Imagen oficial: postgres:14.3
--Usa volumen persistente: postgres-data
--Configurada mediante variables de entorno
--Incluye healthcheck para asegurar disponibilidad
+---
 
-2. Backend (NestJS)
-Construido con Docker multi-stage
-Dos modos:
--dev: hot-reload (desarrollo)
--prod: optimizado para producción
+## Explicación de servicios
 
-Funcionalidades:
--API REST
--Conexión a PostgreSQL
--Autenticación con JWT
--Endpoint /api/seed
+### Base de datos (PostgreSQL)
+
+* Imagen oficial: `postgres:14.3`
+* Usa volumen persistente: `postgres-data`
+* Configurada mediante variables de entorno
+* Incluye **healthcheck** para asegurar disponibilidad
+
+---
+
+### Backend (NestJS)
+
+* Construido con **Docker multi-stage**
+* Modos:
+
+  * `dev`: hot-reload (desarrollo)
+  * `prod`: optimizado para producción
+
+#### Funcionalidades:
+
+* API REST
+* Conexión a PostgreSQL
+* Autenticación con JWT
+* Endpoint `/api/seed`
 
 Puerto:
+
+```
 http://localhost:3000
-3. Frontend (Angular + Nginx)
--Angular compilado en una etapa build
--Servido con Nginx en producción
--Nginx se encarga de:
--Servir la SPA
--Manejar rutas (SPA routing)
--Cachear archivos estáticos
--Hacer proxy hacia el backend (/api)
+```
+
+---
+
+### Frontend (Angular + Nginx)
+
+* Angular compilado en etapa **build**
+* Servido con **Nginx** en producción
+
+#### Nginx se encarga de:
+
+* Servir la SPA
+* Manejar rutas (SPA routing)
+* Cachear archivos estáticos
+* Proxy hacia el backend (`/api`)
 
 Puerto:
+
+```
 http://localhost
-Docker Compose
+```
 
-El archivo docker-compose.yml orquesta:
--Creación de contenedores
--Red interna (teslo-network)
--Volúmenes persistentes
--Dependencias entre servicios
+---
 
-Servicios definidos:
--db → PostgreSQL
--backend → NestJS
--frontend → Angular + Nginx
+## Docker Compose
 
-Scripts
--start.sh
--Verifica que Docker esté activo
--Construye imágenes
--Levanta los contenedores
--./start.sh
+El archivo `docker-compose.yml` orquesta:
 
-stop.sh
--Detiene todos los servicios
+* Creación de contenedores
+* Red interna (`teslo-network`)
+* Volúmenes persistentes
+* Dependencias entre servicios
+
+### Servicios definidos:
+
+* `db` → PostgreSQL
+* `backend` → NestJS
+* `frontend` → Angular + Nginx
+
+---
+
+## Scripts
+
+### start.sh
+
+* Verifica que Docker esté activo
+* Construye las imágenes
+* Levanta los contenedores
+
+```bash
+./start.sh
+```
+
+---
+
+### stop.sh
+
+* Detiene todos los servicios
+
+```bash
 ./stop.sh
+```
 
-Comandos útiles
+---
 
-Ver logs:
+## Reiniciar completamente el entorno
 
-docker compose logs -f
-
-Solo backend:
-
-docker compose logs -f backend
-
-Reiniciar todo:
-
+```bash
 docker compose down -v
 docker compose up --build -d
+```
+
+---
 
